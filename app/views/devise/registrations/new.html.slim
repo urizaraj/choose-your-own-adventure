@@ -1,0 +1,28 @@
+h2 Sign up
+
+= errors resource
+
+= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+  .form-group
+    = f.label :name, 'Username'
+    = f.text_field :name, autofocus: true, class: 'form-control'
+
+  .form-group
+    = f.label :email
+    = f.email_field :email, autocomplete: "email", class: 'form-control'
+
+  .form-group
+    = f.label :password do
+      | Password
+      small.ml-2 #{@minimum_password_length} characters minimum
+    = f.password_field :password, autocomplete: "off", class: 'form-control'
+
+  .form-group
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation, autocomplete: "off", class: 'form-control'
+  
+  = f.submit "Sign up", class: 'btn btn-primary'
+
+br
+
+= render "devise/shared/links"
