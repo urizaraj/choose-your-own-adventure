@@ -1,6 +1,7 @@
 const branches = $('#branches')
 const curTitle = $('#curTitle')
 const curBody = $('#curBody')
+const hidden = $('#hidden')
 const sid = 1
 
 class Application {
@@ -23,10 +24,11 @@ class Branch {
   constructor(id, title) {
     this.id = id
     this.title = title
+    this.url = `/stories/${sid}/branches/${this.id}`
   }
 
   load() {
-    let resp = $.get(`/stories/${sid}/branches/${this.id}`)
+    let resp = $.get(this.url)
     resp.done(data => {
       this.body = data.body
       this.branches = data.branches.map(b => {
@@ -44,17 +46,20 @@ class Branch {
 
     app.curBranches = this.branches
     this.addLinks()
-    setBranchListeners()
-  } 
+  }
 
   addLinks() {
     branches.empty()
     this.branches.forEach(b => {
-      let link = $('#hidden').children().clone()
+      let link = hidden.children().clone()
       link[0].dataset.id = b.id
       let h = link.children()
       h.text(b.title)
       branches.append(link)
+      link.on('click', event => {
+        event.preventDefault()
+        b.load()
+      })
     })
   }
 }
@@ -62,11 +67,7 @@ class Branch {
 const app = new Application()
 
 $(() => {
-  setBranchListeners()
-})
-
-function setBranchListeners() {
   branches.children().toArray().forEach(a => {
     $(a).on('click', event => app.getBranch(event))
   })
-}
+})
