@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  resources :branches
-  resources :stories
-  devise_for :users
-
   root to: 'static#home'
+  
+  resources :stories do
+    resources :branches
+  end
+
+  devise_for :users
 end
