@@ -1,0 +1,6 @@
+- if resource.errors.any?
+  .alert.alert-primary.d-inline-block.alert-dismissible.fade.show.border-0(role="alert")
+    h5.alert-heading Error
+    - resource.errors.full_messages.each do |msg|
+      p.mb-0 = msg
+    button.close(data-dismiss="alert") = fa 'times', 'fa-xs'
