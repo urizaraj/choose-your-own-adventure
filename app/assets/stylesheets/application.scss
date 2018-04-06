@@ -20,4 +20,16 @@ $font-family-base: 'Hind', sans-serif;
 $link-hover-decoration: none;
 $enable-rounded: false;
 
+$theme-colors: (
+  primary: rgba(247, 23, 53, 1),
+  secondary: rgba(65, 234, 212, 1),
+  dark: rgba(1, 22, 39, 1),
+  light: rgba(253, 255, 252, 1),
+  warning: rgba(255, 159, 28, 1)
+);
+
 @import "bootstrap";
+
+.navbar-nav a {
+  @extend .nav-link;
+}
