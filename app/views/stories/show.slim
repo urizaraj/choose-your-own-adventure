@@ -6,9 +6,9 @@ p#curBody = @story.start_branch.body
 
 #branches
   - @story.start_branch.branches.each do |branch|
-    = link_to '#' do
+    = link_to '#', data: {id: branch.id} do
       h3 data-id=branch.id data-sid=@story.id = branch.title
 
 #hidden hidden=true
   = link_to '#' do
-    h3 data-id="" data-sid=@story.id
+    h3 = @story.id
