@@ -1,0 +1,9 @@
+h1.display-4 = @story.title
+p = @story.description
+
+h1 = @story.start_branch.title
+p = @story.start_branch.body
+
+- @story.start_branch.branches.each do |branch|
+  = link_to branch do
+    h2 = branch.title
