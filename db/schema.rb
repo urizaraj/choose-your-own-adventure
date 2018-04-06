@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180406161312) do
+ActiveRecord::Schema.define(version: 20180406164713) do
 
   create_table "branches", force: :cascade do |t|
     t.string "title"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20180406161312) do
 
   create_table "stories", force: :cascade do |t|
     t.string "title"
-    t.string "content"
+    t.string "description"
     t.integer "start_branch_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
