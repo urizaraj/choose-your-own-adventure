@@ -44,4 +44,4 @@ bower.json
 .byebug_history
 
 # Ignore vscode settings
-.vscode/settings.json
+.vscode
