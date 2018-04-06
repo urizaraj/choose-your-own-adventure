@@ -10,22 +10,14 @@ html
     link href="/hind.css" rel="stylesheet"
 
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload', defer: true
 
     link href="/fontawesome-all.css" rel="stylesheet"
 
   body
     .container
       = render partial: 'layouts/header'
-
-      - if notice
-        .alert.alert-success.border-0.d-inline-block.alert-dismissible.fade.show(role="alert")
-          = notice
-          button.close(data-dismiss="alert") = fa 'times', 'fa-xs'
-
-      - if alert
-        .alert.alert-primary.border-0.d-inline-block.alert-dismissible.fade.show(role="alert")
-          = alert
-          button.close(data-dismiss="alert") = fa 'times', 'fa-xs'
+      = render partial: 'layouts/alert', locals: {message: notice}
+      = render partial: 'layouts/alert', locals: {message: alert}
 
       == yield
