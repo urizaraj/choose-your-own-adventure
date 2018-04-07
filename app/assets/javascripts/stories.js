@@ -85,8 +85,9 @@ $(() => {
     const values = form.serialize()
     const resp = $.post('/stories/1/branches', values)
     resp.done(data => {
-      console.log('yeah, it worked', data)
       appendBranch(data)
+      form[0].reset()
+      formRow.slideToggle(100)
     })
   })
 })
