@@ -3,9 +3,9 @@ table.table.mb-5
   - Story.all.each do |story|
     tr
       td = story.id
+      td = story.start_branch.id
       td = story.title
       td = story.description
-      td = story.start_branch.id
 
 strong branches
 table.table
@@ -13,6 +13,14 @@ table.table
     tr
       td = branch.id
       td = branch.story ? branch.story.id : 'no story'
+      td = 'Ending' if branch.end
       td = branch.title
       td = branch.parent ? branch.parent.id : '...'
       td = truncate branch.body, length: 40
+      td = link_to 'Edit', edit_story_branch_path(branch.story, branch), class: 'edit'
+
+#m.modal tabindex="-1" role="dialog"
+  .modal-dialog role="document"
+    .modal-content
+      .modal-body#mbody
+        
