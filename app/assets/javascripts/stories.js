@@ -11,16 +11,21 @@ const branchLink = Handlebars.compile($('#branchLink').html())
 
 class Application {
   constructor() {
-    this.curBranch = null
+    this.sid = $('#storyTitle').data('id')
+    let data = {
+      title: curTitle.text(),
+      id: curTitle.data('id')
+    }
+    this.curBranch = new Branch(data)
     this.curBranches = branches.children().toArray().map(el => {
-      const data = {
-        id: el.dataset.id,
-        title: el.text
-      }
-      const newbranch = new Branch(data)
-      newbranch.returnable = false
-      return newbranch
+      // const data = {
+      //   id: el.dataset.id,
+      //   title: el.text
+      // }
+      const b = new Branch(el.dataset)
+      $(el).on('click', () => b.load())
     })
+    this.curBranch.branches = this.curBranches
   }
 
   getBranch(event) {
@@ -36,7 +41,7 @@ class Branch {
     this.title = data.title
     this.url = `/stories/${sid}/branches/${this.id}`
     this.parent = parent
-    this.returnable = true
+    this.returnable = data.returnable
   }
 
   load() {
@@ -82,9 +87,9 @@ class Branch {
 const app = new Application()
 
 $(() => {
-  branches.children().toArray().forEach(a => {
-    $(a).on('click', event => app.getBranch(event))
-  })
+  // branches.children().toArray().forEach(a => {
+  //   $(a).on('click', event => app.getBranch(event))
+  // })
 
   toggleForm.on('click', () => formRow.slideToggle(100))
 

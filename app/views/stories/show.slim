@@ -1,12 +1,12 @@
-h1 = @story.title
+h1#storyTitle data-id=@story.id = @story.title
 p = @story.description
 
-h2#curTitle = @story.start_branch.title
+h2#curTitle data-id=@story.start_branch.id = @story.start_branch.title
 p#curBody = @story.start_branch.body
 
 #branches
   - @story.start_branch.branches.each do |branch|
-    = link_to '#', data: {id: branch.id} do
+    = link_to '#', data: {id: branch.id, title: branch.title} do
       h3 = branch.title
 
 button.btn.btn-secondary#toggleForm New Branch
