@@ -56,16 +56,18 @@ class Branch {
     bpid.val(this.id)
   }
 
+  addLink() {
+    const html = branchLink(this)
+    branches.append(html)
+    branches.children().last().on('click', event => {
+      event.preventDefault()
+      this.load()
+    })
+  }
+
   addLinks() {
     branches.empty()
-    this.branches.forEach(b => {
-      const html = branchLink(b)
-      branches.append(html)
-      branches.children().last().on('click', event => {
-        event.preventDefault()
-        b.load()
-      })
-    })
+    this.branches.forEach(b => b.addLink())
   }
 }
 
@@ -84,6 +86,12 @@ $(() => {
     const resp = $.post('/stories/1/branches', values)
     resp.done(data => {
       console.log('yeah, it worked', data)
+      appendBranch(data)
     })
   })
 })
+
+function appendBranch(data) {
+  const branch = new Branch(data.id, data.title)
+  branch.addLink()
+}
