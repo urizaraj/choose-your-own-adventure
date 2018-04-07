@@ -1,0 +1,18 @@
+strong stories
+table.table.mb-5
+  - Story.all.each do |story|
+    tr
+      td = story.id
+      td = story.title
+      td = story.description
+      td = story.start_branch.id
+
+strong branches
+table.table
+  - Branch.all.each do |branch|
+    tr
+      td = branch.id
+      td = branch.story ? branch.story.id : 'no story'
+      td = branch.title
+      td = branch.parent ? branch.parent.id : '...'
+      td = truncate branch.body, length: 40
