@@ -3,6 +3,7 @@ const curTitle = $('#curTitle')
 const curBody = $('#curBody')
 const hidden = $('#hidden')
 const sid = 1
+const form = $('#new_branch')
 
 class Application {
   constructor() {
@@ -69,5 +70,11 @@ const app = new Application()
 $(() => {
   branches.children().toArray().forEach(a => {
     $(a).on('click', event => app.getBranch(event))
+  })
+
+  form.submit(event => {
+    event.preventDefault()
+    console.log('good so far')
+    console.log(form.serialize())
   })
 })
