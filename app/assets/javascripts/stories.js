@@ -11,10 +11,15 @@ const branchLink = Handlebars.compile($('#branchLink').html())
 
 class Application {
   constructor() {
+    this.curBranch = null
     this.curBranches = branches.children().toArray().map(el => {
-      const id = el.dataset.id
-      const title = el.text
-      return new Branch(id, title)
+      const data = {
+        id: el.dataset.id,
+        title: el.text
+      }
+      const newbranch = new Branch(data)
+      newbranch.returnable = false
+      return newbranch
     })
   }
 
@@ -26,10 +31,12 @@ class Application {
 }
 
 class Branch {
-  constructor(id, title) {
-    this.id = id
-    this.title = title
+  constructor(data, parent) {
+    this.id = data.id
+    this.title = data.title
     this.url = `/stories/${sid}/branches/${this.id}`
+    this.parent = parent
+    this.returnable = true
   }
 
   load() {
@@ -40,9 +47,7 @@ class Branch {
   parse(data) {
     this.body = data.body
     this.branches = data.branches.map(b => {
-      const id = b.id
-      const title = b.title
-      return new Branch(id, title)
+      return new Branch(b, this)
     })
     this.display()
   }
@@ -50,7 +55,7 @@ class Branch {
   display() {
     curTitle.text(this.title)
     curBody.text(this.body)
-
+    app.curBranch = this
     app.curBranches = this.branches
     this.addLinks()
     bpid.val(this.id)
@@ -67,6 +72,9 @@ class Branch {
 
   addLinks() {
     branches.empty()
+    if (this.returnable) {
+      this.parent.addLink()
+    }
     this.branches.forEach(b => b.addLink())
   }
 }
@@ -93,6 +101,6 @@ $(() => {
 })
 
 function appendBranch(data) {
-  const branch = new Branch(data.id, data.title)
+  const branch = new Branch(data, app.curBranch)
   branch.addLink()
 }
