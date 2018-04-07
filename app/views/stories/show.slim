@@ -9,7 +9,12 @@ p#curBody = @story.start_branch.body
     = link_to '#', data: {id: branch.id} do
       h3 data-id=branch.id data-sid=@story.id = branch.title
 
-= render partial: 'branches/form', locals: {branch: @story.start_branch.branches.build}
+button.btn.btn-secondary#toggleForm New Branch
+.row#formRow style="display: none"
+  .col-lg-8
+    .card.border-secondary
+      .card-body
+        = render partial: 'branches/form', locals: {branch: @story.start_branch.branches.build}
 
 #hidden hidden=true
   = link_to '#' do
