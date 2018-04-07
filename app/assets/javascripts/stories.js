@@ -1,12 +1,13 @@
+const sid = 1
 const branches = $('#branches')
 const curTitle = $('#curTitle')
 const curBody = $('#curBody')
 const hidden = $('#hidden')
-const sid = 1
 const form = $('#new_branch')
 const bpid = $('#branch_parent_id')
 const toggleForm = $('#toggleForm')
 const formRow = $('#formRow')
+const branchLink = Handlebars.compile($('#branchLink').html())
 
 class Application {
   constructor() {
@@ -58,12 +59,9 @@ class Branch {
   addLinks() {
     branches.empty()
     this.branches.forEach(b => {
-      let link = hidden.children().clone()
-      link[0].dataset.id = b.id
-      let h = link.children()
-      h.text(b.title)
-      branches.append(link)
-      link.on('click', event => {
+      const html = branchLink(b)
+      branches.append(html)
+      branches.children().last().on('click', event => {
         event.preventDefault()
         b.load()
       })
@@ -82,7 +80,6 @@ $(() => {
 
   form.submit(event => {
     event.preventDefault()
-    console.log('good so far')
     const values = form.serialize()
     const resp = $.post('/stories/1/branches', values)
     resp.done(data => {

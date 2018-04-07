@@ -7,7 +7,7 @@ p#curBody = @story.start_branch.body
 #branches
   - @story.start_branch.branches.each do |branch|
     = link_to '#', data: {id: branch.id} do
-      h3 data-id=branch.id data-sid=@story.id = branch.title
+      h3 = branch.title
 
 button.btn.btn-secondary#toggleForm New Branch
 .row#formRow style="display: none"
@@ -16,6 +16,6 @@ button.btn.btn-secondary#toggleForm New Branch
       .card-body
         = render partial: 'branches/form', locals: {branch: @story.start_branch.branches.build}
 
-#hidden hidden=true
-  = link_to '#' do
-    h3 = @story.id
+^branchLink
+  a href="#" data-id="{{ id }}"
+    h3 {{ title }}
