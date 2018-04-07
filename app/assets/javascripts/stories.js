@@ -4,6 +4,9 @@ const curBody = $('#curBody')
 const hidden = $('#hidden')
 const sid = 1
 const form = $('#new_branch')
+const bpid = $('#branch_parent_id')
+const toggleForm = $('#toggleForm')
+const formRow = $('#formRow')
 
 class Application {
   constructor() {
@@ -30,15 +33,17 @@ class Branch {
 
   load() {
     let resp = $.get(this.url)
-    resp.done(data => {
-      this.body = data.body
-      this.branches = data.branches.map(b => {
-        const id = b.id
-        const title = b.title
-        return new Branch(id, title)
-      })
-      this.display()
+    resp.done(data => this.parse(data))
+  }
+
+  parse(data) {
+    this.body = data.body
+    this.branches = data.branches.map(b => {
+      const id = b.id
+      const title = b.title
+      return new Branch(id, title)
     })
+    this.display()
   }
 
   display() {
@@ -47,6 +52,7 @@ class Branch {
 
     app.curBranches = this.branches
     this.addLinks()
+    bpid.val(this.id)
   }
 
   addLinks() {
@@ -72,9 +78,15 @@ $(() => {
     $(a).on('click', event => app.getBranch(event))
   })
 
+  toggleForm.on('click', () => formRow.slideToggle(100))
+
   form.submit(event => {
     event.preventDefault()
     console.log('good so far')
-    console.log(form.serialize())
+    const values = form.serialize()
+    const resp = $.post('/stories/1/branches', values)
+    resp.done(data => {
+      console.log('yeah, it worked', data)
+    })
   })
 })
