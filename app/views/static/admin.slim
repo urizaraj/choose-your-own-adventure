@@ -14,7 +14,7 @@ table.table.mb-5 style="font-size: 1rem"
       td = link_to fa('cog'), edit_story_branch_path(branch.story, branch), class: 'edit'
       td = branch.id
       td id=branch.id data-body=branch.body = branch.title
-      / td = branch.story ? branch.story.id : 'no story'
+      td = branch.story.id if branch.story
       td = 'Ending' if branch.end
       td = branch.parent.id if branch.parent
       td = branch.user.name
