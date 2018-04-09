@@ -1,4 +1,6 @@
 class StoriesController < ApplicationController
+  before_action :require_user, only: %i[new create]
+
   def index
     @stories = Story.all
   end
