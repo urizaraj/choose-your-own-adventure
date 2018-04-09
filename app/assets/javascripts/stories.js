@@ -29,7 +29,7 @@ class Application {
   submitForm(event) {
     event.preventDefault()
     const values = form.serialize()
-    const resp = $.post('/stories/1/branches', values)
+    const resp = $.post(`/stories/${sid}/branches`, values)
     resp.done(data => {
       const branch = new Branch(data, this.curBranch)
       branch.addLink()
