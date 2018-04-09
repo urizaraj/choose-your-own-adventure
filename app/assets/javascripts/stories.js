@@ -1,4 +1,3 @@
-const sid = 1
 const branches = $('#branches')
 const curTitle = $('#curTitle')
 const curBody = $('#curBody')
@@ -8,6 +7,7 @@ const bpid = $('#branch_parent_id')
 const toggleForm = $('#toggleForm')
 const formRow = $('#formRow')
 const branchLink = Handlebars.compile($('#branchLink').html())
+const startOver = $('#startOver')
 
 class Application {
   constructor() {
@@ -23,8 +23,10 @@ class Application {
         event.preventDefault()
         b.load()
       })
+      return b
     })
     this.curBranch.branches = this.curBranches
+    this.startBranch = this.curBranch
   }
 
   submitForm(event) {
@@ -38,13 +40,19 @@ class Application {
       formRow.slideToggle(100)
     })
   }
+
+  startOver() {
+    this.startBranch.load()
+    toggleForm.show()
+    startOver.hide()
+  }
 }
 
 class Branch {
   constructor(data, parent) {
     this.id = data.id
     this.title = data.title
-    this.url = `/stories/${sid}/branches/${this.id}`
+    this.url = `/stories/${app.sid}/branches/${this.id}`
     this.parent = parent
     this.returnable = data.returnable
     this.end = data.end
@@ -68,6 +76,10 @@ class Branch {
     curBody.text(this.body)
     app.curBranch = this
     app.curBranches = this.branches
+    if (this.end) {
+      startOver.show()
+      toggleForm.hide()
+    }
     this.addLinks()
     bpid.val(this.id)
   }
@@ -94,6 +106,6 @@ const app = new Application()
 
 $(() => {
   toggleForm.on('click', () => formRow.slideToggle(100))
-
   form.submit(event => app.submitForm(event))
+  startOver.on('click', () => app.startOver())
 })

@@ -4,11 +4,13 @@ p = @story.description
 h2#curTitle data-id=@story.start_branch.id = @story.start_branch.title
 p#curBody = @story.start_branch.body
 
+
 #branches
   - @story.start_branch.branches.each do |branch|
     = link_to '#', data: {id: branch.id, title: branch.title} do
       h3 = branch.title
 
+button#startOver.btn.btn-primary style="display: none" Start Over
 button.btn.btn-secondary#toggleForm New Branch
 .row#formRow style="display: none"
   .col-lg-8
