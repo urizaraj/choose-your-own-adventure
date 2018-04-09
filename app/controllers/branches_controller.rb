@@ -1,5 +1,7 @@
 class BranchesController < ApplicationController
   before_action :set_branch, only: %i[show edit update]
+  before_action :require_user, only: %i[create edit update]
+  
   def show
     render json: @branch
   end
@@ -11,13 +13,15 @@ class BranchesController < ApplicationController
   end
 
   def edit
-    render partial: 'form', locals: {branch: @branch, story: @story}
+    render partial: 'form', locals: { branch: @branch, story: @story }
   end
 
   def update
     @branch.update(strong_params)
     redirect_to admin_path
   end
+
+  private
 
   def strong_params
     params

@@ -10,12 +10,13 @@ p = @story.description
   button#goBack.btn.btn-primary style="display: none" Go Back
   button#startOver.btn.btn-primary style="display: none" Start Over
 
-  button.btn.btn-secondary#toggleForm New Branch
-  .row#formRow style="display: none"
-    .col-lg-8
-      .card.border-secondary
-        .card-body
-          = render partial: 'branches/form', locals: {story: @story, branch: @story.branches.build}
+  - if user_signed_in?
+    button.btn.btn-secondary#toggleForm New Branch
+    .row#formRow style="display: none"
+      .col-lg-8
+        .card.border-secondary
+          .card-body
+            = render partial: 'branches/form', locals: {story: @story, branch: @story.branches.build}
 
 ^branchLink
   a href="#" data-id="{{ id }}"
