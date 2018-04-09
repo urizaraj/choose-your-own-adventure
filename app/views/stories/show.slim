@@ -15,7 +15,7 @@ p = @story.description
     .col-lg-8
       .card.border-secondary
         .card-body
-          = render partial: 'branches/form', locals: {branch: @story.start_branch.branches.build}
+          = render partial: 'branches/form', locals: {story: @story, branch: @story.branches.build}
 
 ^branchLink
   a href="#" data-id="{{ id }}"

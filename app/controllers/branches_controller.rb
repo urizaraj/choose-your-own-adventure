@@ -11,7 +11,7 @@ class BranchesController < ApplicationController
   end
 
   def edit
-    render partial: 'form', locals: {branch: @branch}
+    render partial: 'form', locals: {branch: @branch, story: @story}
   end
 
   def update
