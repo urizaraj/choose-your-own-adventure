@@ -11,13 +11,14 @@ strong branches
 table.table
   - Branch.all.each do |branch|
     tr
+      td = link_to fa('cog'), edit_story_branch_path(branch.story, branch), class: 'edit'
       td = branch.id
-      td = branch.story ? branch.story.id : 'no story'
-      td = 'Ending' if branch.end
       td = branch.title
-      td = branch.parent ? branch.parent.id : '...'
-      td: a.tool href="#" data-placement="bottom" data-toggle="tooltip" title=branch.body = truncate branch.body, length: 40
-      td = link_to 'Edit', edit_story_branch_path(branch.story, branch), class: 'edit'
+      / td = branch.story ? branch.story.id : 'no story'
+      td = 'Ending' if branch.end
+      td = branch.parent.id if branch.parent
+      / td: a.tool href="#" data-placement="bottom" data-toggle="tooltip" title=branch.body = truncate branch.body, length: 50
+      td = branch.body
 
 #m.modal tabindex="-1" role="dialog"
   .modal-dialog role="document"
