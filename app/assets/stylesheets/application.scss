@@ -31,6 +31,6 @@ $theme-colors: (
 
 @import "bootstrap";
 
-.navbar-nav a {
+.navbar-nav > a {
   @extend .nav-link;
-}
+} 
