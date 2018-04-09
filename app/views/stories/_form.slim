@@ -1,0 +1,19 @@
+= form_for story do |f|
+  .form-group
+    = f.label :title
+    = f.text_field :title, class: 'form-control'
+
+  .form-group
+    = f.label :description
+    = f.text_area :description, class: 'form-control'
+  
+  = f.fields_for :start_branch, start_branch do |b|
+    .form-group
+      = b.label :title
+      = b.text_field :title, class: 'form-control'
+
+    .form-group
+      = b.label :body
+      = b.text_field :body, class: 'form-control'
+
+  = f.submit class: 'btn btn-primary'

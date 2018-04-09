@@ -1,3 +1,5 @@
 - @stories.each do |story|
   = link_to story do
     h1.display-4 = story.title
+
+= link_to 'New Story', new_story_path
