@@ -20,8 +20,9 @@ class BranchesController < ApplicationController
   end
 
   def strong_params
-    params.require(:branch)
-          .permit(:title, :body, :story_id, :parent_id, :end)
+    params
+      .require(:branch)
+      .permit(:title, :body, :story_id, :parent_id, :end, :returnable)
   end
 
   def set_branch
