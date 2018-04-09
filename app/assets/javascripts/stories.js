@@ -45,6 +45,7 @@ class Application {
 
   goBack() {
     this.curBranch.parent.load()
+    goBack.hide()
   }
 }
 
@@ -80,6 +81,7 @@ class Branch {
       startOver.show()
       toggleForm.hide()
     }
+    this.returnable ? goBack.show() : goBack.hide()
     this.addLinks()
     bpid.val(this.id)
   }
