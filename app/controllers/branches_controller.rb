@@ -7,8 +7,11 @@ class BranchesController < ApplicationController
   end
 
   def create
-    branch = Branch.create(strong_params)
-    branch.update(story: Story.find(params[:story_id]))
+    # branch = Branch.create(strong_params)
+    # branch.update(story: Story.find(params[:story_id]))
+    branch = Branch.new(strong_params)
+    branch.user = current_user
+    branch.save
     render json: branch
   end
 
