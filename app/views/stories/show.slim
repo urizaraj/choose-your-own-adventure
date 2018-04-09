@@ -9,7 +9,8 @@ p#curBody = @story.start_branch.body
   - @story.start_branch.branches.each do |branch|
     = link_to '#', data: {id: branch.id, title: branch.title} do
       h3 = branch.title
-
+      
+button#goBack.btn.btn-warning Go Back
 button#startOver.btn.btn-primary style="display: none" Start Over
 button.btn.btn-secondary#toggleForm New Branch
 .row#formRow style="display: none"

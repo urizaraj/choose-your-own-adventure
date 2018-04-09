@@ -1,3 +1,4 @@
+const sid = $('#storyTitle').data('id')
 const branches = $('#branches')
 const curTitle = $('#curTitle')
 const curBody = $('#curBody')
@@ -8,6 +9,7 @@ const toggleForm = $('#toggleForm')
 const formRow = $('#formRow')
 const branchLink = Handlebars.compile($('#branchLink').html())
 const startOver = $('#startOver')
+const goBack = $('#goBack')
 
 class Application {
   constructor() {
@@ -46,13 +48,17 @@ class Application {
     toggleForm.show()
     startOver.hide()
   }
+
+  goBack() {
+    this.curBranch.parent.load()
+  }
 }
 
 class Branch {
   constructor(data, parent) {
     this.id = data.id
     this.title = data.title
-    this.url = `/stories/${app.sid}/branches/${this.id}`
+    this.url = `/stories/${sid}/branches/${this.id}`
     this.parent = parent
     this.returnable = data.returnable
     this.end = data.end
@@ -108,4 +114,5 @@ $(() => {
   toggleForm.on('click', () => formRow.slideToggle(100))
   form.submit(event => app.submitForm(event))
   startOver.on('click', () => app.startOver())
+  goBack.on('click', () => app.goBack())
 })
