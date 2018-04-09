@@ -7,10 +7,10 @@ const form = $('#new_branch')
 const bpid = $('#branch_parent_id')
 const toggleForm = $('#toggleForm')
 const formRow = $('#formRow')
-const branchLink = Handlebars.compile($('#branchLink').html())
 const startOver = $('#startOver')
 const goBack = $('#goBack')
 const dynamic = $('#dynamic')
+const branchLink = Handlebars.compile($('#branchLink').html())
 
 class Application {
   constructor() {
@@ -79,6 +79,7 @@ class Branch {
       startOver.show()
       toggleForm.hide()
     } else {
+      startOver.hide()
       toggleForm.show()
     }
 
