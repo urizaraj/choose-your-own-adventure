@@ -13,4 +13,15 @@ $(() => {
   })
 
   $('.tool').tooltip()
+  const body = $('#body')
+
+  for (let i = 1; i < 18; i++) {
+    const element = $(`#${i}`)
+    element.on('mouseenter', () => {
+      body.text(element.data('body'))
+    })
+    element.on('mouseleave', () => {
+      body.text(' ')
+    })
+  }
 })

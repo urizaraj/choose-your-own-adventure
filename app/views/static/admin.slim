@@ -8,21 +8,26 @@ table.table.mb-5
       td = story.description
 
 strong branches
-table.table
+table.table.mb-5 style="font-size: 1rem"
   - Branch.all.each do |branch|
     tr
       td = link_to fa('cog'), edit_story_branch_path(branch.story, branch), class: 'edit'
       td = branch.id
-      td = branch.title
+      td id=branch.id data-body=branch.body = branch.title
       / td = branch.story ? branch.story.id : 'no story'
       td = 'Ending' if branch.end
       td = branch.parent.id if branch.parent
+      td = branch.user.name
+      / td id=branch.id data-body=branch.body Body
       / td: a.tool href="#" data-placement="bottom" data-toggle="tooltip" title=branch.body = truncate branch.body, length: 50
-      td = branch.body
 
 #m.modal tabindex="-1" role="dialog"
   .modal-dialog role="document"
     .modal-content
       .modal-body#mbody
+
+.fixed-bottom
+  .card
+    .card-body#body
 
 = javascript_include_tag 'static'
