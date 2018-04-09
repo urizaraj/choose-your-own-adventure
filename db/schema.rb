@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180409134934) do
+ActiveRecord::Schema.define(version: 20180409175538) do
 
   create_table "branches", force: :cascade do |t|
     t.string "title"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20180409134934) do
     t.integer "parent_id"
     t.boolean "end", default: false
     t.boolean "returnable", default: true
+    t.integer "user_id"
   end
 
   create_table "stories", force: :cascade do |t|
@@ -29,6 +30,7 @@ ActiveRecord::Schema.define(version: 20180409134934) do
     t.integer "start_branch_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|
