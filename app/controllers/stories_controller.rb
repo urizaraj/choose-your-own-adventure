@@ -3,6 +3,11 @@ class StoriesController < ApplicationController
 
   def index
     @stories = Story.all
+    # render json: @stories
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @stories }
+    end
   end
 
   def show

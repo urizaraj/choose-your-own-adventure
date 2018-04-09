@@ -1,5 +1,24 @@
-- @stories.each do |story|
-  = link_to story do
-    h1.display-4 = story.title
+/ - @stories.each do |story|
+/   = link_to story do
+/     h1.display-4 = story.title
+
+
+.card
+  .row.align-items-center.text-center
+    .col-auto#previous 
+      .pl-2 = fa 'angle-left fa-3x'
+    .col
+      .card-body#curStory
+    .col-auto#next 
+      .pr-2 = fa 'angle-right fa-3x'
 
 = link_to 'New Story', new_story_path
+
+^storyDetail
+  h4.mb-0 {{ title }}
+  .small.mb-2 {{ description }}
+  h5 {{ endings }} endings
+  a.btn.btn-primary href="{{url}}" Link
+
+
+= javascript_include_tag 'storyindex'
