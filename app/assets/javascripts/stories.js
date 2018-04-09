@@ -18,20 +18,25 @@ class Application {
     }
     this.curBranch = new Branch(data)
     this.curBranches = branches.children().toArray().map(el => {
-      // const data = {
-      //   id: el.dataset.id,
-      //   title: el.text
-      // }
       const b = new Branch(el.dataset)
-      $(el).on('click', () => b.load())
+      $(el).on('click', event => {
+        event.preventDefault()
+        b.load()
+      })
     })
     this.curBranch.branches = this.curBranches
   }
 
-  getBranch(event) {
+  submitForm(event) {
     event.preventDefault()
-    const id = event.currentTarget.dataset.id
-    this.curBranches.find(b => b.id == id).load()
+    const values = form.serialize()
+    const resp = $.post('/stories/1/branches', values)
+    resp.done(data => {
+      const branch = new Branch(data, this.curBranch)
+      branch.addLink()
+      form[0].reset()
+      formRow.slideToggle(100)
+    })
   }
 }
 
@@ -42,6 +47,7 @@ class Branch {
     this.url = `/stories/${sid}/branches/${this.id}`
     this.parent = parent
     this.returnable = data.returnable
+    this.end = data.end
   }
 
   load() {
@@ -66,6 +72,14 @@ class Branch {
     bpid.val(this.id)
   }
 
+  addLinks() {
+    branches.empty()
+    if (this.returnable) {
+      this.parent.addLink()
+    }
+    this.branches.forEach(b => b.addLink())
+  }
+
   addLink() {
     const html = branchLink(this)
     branches.append(html)
@@ -74,38 +88,12 @@ class Branch {
       this.load()
     })
   }
-
-  addLinks() {
-    branches.empty()
-    if (this.returnable) {
-      this.parent.addLink()
-    }
-    this.branches.forEach(b => b.addLink())
-  }
 }
 
 const app = new Application()
 
 $(() => {
-  // branches.children().toArray().forEach(a => {
-  //   $(a).on('click', event => app.getBranch(event))
-  // })
-
   toggleForm.on('click', () => formRow.slideToggle(100))
 
-  form.submit(event => {
-    event.preventDefault()
-    const values = form.serialize()
-    const resp = $.post('/stories/1/branches', values)
-    resp.done(data => {
-      appendBranch(data)
-      form[0].reset()
-      formRow.slideToggle(100)
-    })
-  })
+  form.submit(event => app.submitForm(event))
 })
-
-function appendBranch(data) {
-  const branch = new Branch(data, app.curBranch)
-  branch.addLink()
-}
