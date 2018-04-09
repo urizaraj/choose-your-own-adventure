@@ -10,6 +10,7 @@ const formRow = $('#formRow')
 const branchLink = Handlebars.compile($('#branchLink').html())
 const startOver = $('#startOver')
 const goBack = $('#goBack')
+const dynamic = $('#dynamic')
 
 class Application {
   constructor() {
@@ -39,13 +40,10 @@ class Application {
 
   startOver() {
     this.startBranch.load()
-    toggleForm.show()
-    startOver.hide()
   }
 
   goBack() {
     this.curBranch.parent.load()
-    goBack.hide()
   }
 }
 
@@ -69,21 +67,24 @@ class Branch {
     this.branches = data.branches.map(b => {
       return new Branch(b, this)
     })
-    this.display()
+    app.curBranch = this
+    bpid.val(this.id)
+    dynamic.fadeOut(200, () => this.display())
   }
 
   display() {
     curTitle.text(this.title)
     curBody.text(this.body)
-    app.curBranch = this
-    app.curBranches = this.branches
     if (this.end) {
       startOver.show()
       toggleForm.hide()
+    } else {
+      toggleForm.show()
     }
+
     this.returnable ? goBack.show() : goBack.hide()
     this.addLinks()
-    bpid.val(this.id)
+    dynamic.fadeIn(200)
   }
 
   addLinks() {

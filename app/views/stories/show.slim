@@ -1,23 +1,21 @@
 h1#storyTitle data-id=@story.id = @story.title
 p = @story.description
 
-h2#curTitle data-id=@story.start_branch.id = @story.start_branch.title
-p#curBody = @story.start_branch.body
+#dynamic style="display: none"
+  h2#curTitle data-id=@story.start_branch.id = @story.start_branch.title
+  p#curBody = @story.start_branch.body
 
-#branches
-  - @story.start_branch.branches.each do |branch|
-    = link_to '#', data: {id: branch.id, title: branch.title} do
-      h3 = branch.title
-      
-button#goBack.btn.btn-primary style="display: none" Go Back
-button#startOver.btn.btn-primary style="display: none" Start Over
+  #branches
+        
+  button#goBack.btn.btn-primary style="display: none" Go Back
+  button#startOver.btn.btn-primary style="display: none" Start Over
 
-button.btn.btn-secondary#toggleForm New Branch
-.row#formRow style="display: none"
-  .col-lg-8
-    .card.border-secondary
-      .card-body
-        = render partial: 'branches/form', locals: {branch: @story.start_branch.branches.build}
+  button.btn.btn-secondary#toggleForm New Branch
+  .row#formRow style="display: none"
+    .col-lg-8
+      .card.border-secondary
+        .card-body
+          = render partial: 'branches/form', locals: {branch: @story.start_branch.branches.build}
 
 ^branchLink
   a href="#" data-id="{{ id }}"
