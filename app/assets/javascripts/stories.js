@@ -13,22 +13,16 @@ const goBack = $('#goBack')
 
 class Application {
   constructor() {
-    this.sid = $('#storyTitle').data('id')
-    let data = {
+    const data = {
       title: curTitle.text(),
-      id: curTitle.data('id')
+      id: curTitle.data('id'),
+      end: false,
+      returnable: false
     }
-    this.curBranch = new Branch(data)
-    this.curBranches = branches.children().toArray().map(el => {
-      const b = new Branch(el.dataset)
-      $(el).on('click', event => {
-        event.preventDefault()
-        b.load()
-      })
-      return b
-    })
-    this.curBranch.branches = this.curBranches
-    this.startBranch = this.curBranch
+
+    this.startBranch = new Branch(data)
+    this.startBranch.load()
+    this.curBranch = this.startBranch
   }
 
   submitForm(event) {
@@ -58,10 +52,10 @@ class Branch {
   constructor(data, parent) {
     this.id = data.id
     this.title = data.title
-    this.url = `/stories/${sid}/branches/${this.id}`
-    this.parent = parent
     this.returnable = data.returnable
     this.end = data.end
+    this.parent = parent
+    this.url = `/stories/${sid}/branches/${this.id}`
   }
 
   load() {
@@ -92,9 +86,6 @@ class Branch {
 
   addLinks() {
     branches.empty()
-    if (this.returnable) {
-      this.parent.addLink()
-    }
     this.branches.forEach(b => b.addLink())
   }
 
