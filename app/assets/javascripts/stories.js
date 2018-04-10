@@ -2,7 +2,6 @@ const sid = $('#storyTitle').data('id')
 const branches = $('#branches')
 const curTitle = $('#curTitle')
 const curBody = $('#curBody')
-const hidden = $('#hidden')
 const form = $('#new_branch')
 const bpid = $('#branch_parent_id')
 const toggleForm = $('#toggleForm')
@@ -10,6 +9,7 @@ const formRow = $('#formRow')
 const startOver = $('#startOver')
 const goBack = $('#goBack')
 const dynamic = $('#dynamic')
+const author = $('#author')
 const branchLink = Handlebars.compile($('#branchLink').html())
 
 class Application {
@@ -53,6 +53,7 @@ class Branch {
     this.title = data.title
     this.returnable = data.returnable
     this.end = data.end
+    this.user = data.user
     this.parent = parent
     this.url = `/stories/${sid}/branches/${this.id}`
   }
@@ -67,6 +68,7 @@ class Branch {
     this.branches = data.branches.map(b => {
       return new Branch(b, this)
     })
+    this.user = data.user
     app.curBranch = this
     bpid.val(this.id)
     dynamic.fadeOut(200, () => this.display())
@@ -75,6 +77,7 @@ class Branch {
   display() {
     curTitle.text(this.title)
     curBody.html(this.body)
+    author.text(this.user.name)
     if (this.end) {
       startOver.show()
       toggleForm.hide()

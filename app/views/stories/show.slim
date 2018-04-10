@@ -1,9 +1,15 @@
 h1#storyTitle.mb-0 data-id=@story.id = @story.title
-.small.mb-2 by #{@story.user.name}, created #{@story.created_at.strftime '%B %-d, %Y'}
+.small.mb-2
+  | by 
+  span.badge.badge-secondary =<> @story.user.name
+  | created #{@story.created_at.strftime '%B %-d, %Y'}
 p = @story.description
 
 #dynamic.none
-  h2#curTitle data-id=@story.start_branch.id = @story.start_branch.title
+  h2.mb-0#curTitle data-id=@story.start_branch.id = @story.start_branch.title
+  .small.mb-2
+    | submited by
+    span.badge.badge-secondary#author<
   p#curBody
 
   .mb-1: button#goBack.btn.btn-link.none
@@ -30,4 +36,26 @@ p = @story.description
 ^branchLink
   .mb-1: button.btn.btn-primary id="b-{{ id }}" {{ title }}
 
+^branchHead
+  h2.mb-0 {{ title }}
+  .small.mb-2
+    | submited by
+    span.badge.badge-secondary< {{ user.name }}
+
+  p {{ body }}
+
+  | {{#if returnable}}
+  .mb-1: button#goBack.btn.btn-link.none
+    | Go Back
+    =< fa 'undo fa-sm'
+  | {{/if}}
+
+  #branches.mb-3
+
+  | {{#if end}}
+  button#startOver.btn.btn-primary.none
+    => fa 'sync fa-sm'
+    | Start Over
+  | {{/end}}
+  
 = javascript_include_tag 'stories'
