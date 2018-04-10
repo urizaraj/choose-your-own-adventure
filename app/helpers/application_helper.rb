@@ -24,4 +24,8 @@ module ApplicationHelper
   def far(name, extra = '')
     fa name, extra, 'far'
   end
+
+  def date(resource)
+    resource.created_at.strftime '%B %-d, %Y'
+  end
 end
