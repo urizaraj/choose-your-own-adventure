@@ -1,7 +1,8 @@
 h1#storyTitle.mb-0 data-id=@story.id data-sbid=@story.start_branch.id data-sbtitle=@story.start_branch.title = @story.title
 .small.mb-2
   | by 
-  span.badge.badge-secondary =<> @story.user.name
+  / a.badge.badge-secondary =<> @story.user.name
+  => link_to @story.user.name, user_path(@story.user), class: 'badge badge-secondary'
   | created #{@story.created_at.strftime '%B %-d, %Y'}
 p = @story.description
 
@@ -26,7 +27,7 @@ p = @story.description
   h2.mb-0 {{ title }}
   .small.mb-2
     | submited by
-    span.badge.badge-secondary< {{ user.name }}
+    a.badge.badge-secondary< href="/users/{{user.id}}" {{ user.name }}
 
   p {{{ body }}}
 
