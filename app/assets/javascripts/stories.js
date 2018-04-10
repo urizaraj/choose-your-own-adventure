@@ -1,22 +1,22 @@
+const storyTitle = $('#storyTitle')
+
 const sid = $('#storyTitle').data('id')
-const branches = $('#branches')
-const curTitle = $('#curTitle')
-const curBody = $('#curBody')
 const form = $('#new_branch')
 const bpid = $('#branch_parent_id')
 const toggleForm = $('#toggleForm')
 const formRow = $('#formRow')
-const startOver = $('#startOver')
-const goBack = $('#goBack')
 const dynamic = $('#dynamic')
-const author = $('#author')
+const head = $('#head')
 const branchLink = Handlebars.compile($('#branchLink').html())
+const branchHead = Handlebars.compile($('#branchHead').html())
+
+let branches
 
 class Application {
   constructor() {
     const data = {
-      title: curTitle.text(),
-      id: curTitle.data('id'),
+      title: storyTitle.data('sbtitle'),
+      id: storyTitle.data('sbid'),
       end: false,
       returnable: false
     }
@@ -45,6 +45,12 @@ class Application {
   goBack() {
     this.curBranch.parent.load()
   }
+
+  addListeners() {
+    $('#goBack').on('click', () => app.startOver())
+    $('#startOver').on('click', () => app.goBack())
+    branches = $('#branches')
+  }
 }
 
 class Branch {
@@ -64,7 +70,7 @@ class Branch {
   }
 
   parse(data) {
-    this.body = data.body.replace(/\n/g,"<br>")
+    this.body = data.body.replace(/\n/g, "<br>")
     this.branches = data.branches.map(b => {
       return new Branch(b, this)
     })
@@ -75,18 +81,22 @@ class Branch {
   }
 
   display() {
-    curTitle.text(this.title)
-    curBody.html(this.body)
-    author.text(this.user.name)
-    if (this.end) {
-      startOver.show()
-      toggleForm.hide()
-    } else {
-      startOver.hide()
-      toggleForm.show()
-    }
+    // curTitle.text(this.title)
+    // curBody.html(this.body)
+    // author.text(this.user.name)
+    // if (this.end) {
+    //   startOver.show()
+    //   toggleForm.hide()
+    // } else {
+    //   startOver.hide()
+    //   toggleForm.show()
+    // }
 
-    this.returnable ? goBack.show() : goBack.hide()
+    // this.returnable ? goBack.show() : goBack.hide()
+    this.end ? toggleForm.hide() : toggleForm.show()
+    const html = branchHead(this)
+    head.html(html)
+    app.addListeners()
     this.addLinks()
     dynamic.fadeIn(200)
   }
@@ -111,6 +121,4 @@ const app = new Application()
 $(() => {
   toggleForm.on('click', () => formRow.slideToggle(100))
   form.submit(event => app.submitForm(event))
-  startOver.on('click', () => app.startOver())
-  goBack.on('click', () => app.goBack())
 })

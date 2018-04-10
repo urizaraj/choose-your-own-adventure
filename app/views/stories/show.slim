@@ -1,4 +1,4 @@
-h1#storyTitle.mb-0 data-id=@story.id = @story.title
+h1#storyTitle.mb-0 data-id=@story.id data-sbid=@story.start_branch.id data-sbtitle=@story.start_branch.title = @story.title
 .small.mb-2
   | by 
   span.badge.badge-secondary =<> @story.user.name
@@ -6,21 +6,7 @@ h1#storyTitle.mb-0 data-id=@story.id = @story.title
 p = @story.description
 
 #dynamic.none
-  h2.mb-0#curTitle data-id=@story.start_branch.id = @story.start_branch.title
-  .small.mb-2
-    | submited by
-    span.badge.badge-secondary#author<
-  p#curBody
-
-  .mb-1: button#goBack.btn.btn-link.none
-    | Go Back
-    =< fa 'undo fa-sm'
-
-  #branches.mb-3
-
-  button#startOver.btn.btn-primary.none
-    => fa 'sync fa-sm'
-    | Start Over
+  #head
 
   - if user_signed_in?
     button.btn.btn-secondary.btn-sm#toggleForm
@@ -42,10 +28,10 @@ p = @story.description
     | submited by
     span.badge.badge-secondary< {{ user.name }}
 
-  p {{ body }}
+  p {{{ body }}}
 
   | {{#if returnable}}
-  .mb-1: button#goBack.btn.btn-link.none
+  .mb-1: button#goBack.btn.btn-link
     | Go Back
     =< fa 'undo fa-sm'
   | {{/if}}
@@ -53,9 +39,9 @@ p = @story.description
   #branches.mb-3
 
   | {{#if end}}
-  button#startOver.btn.btn-primary.none
+  button#startOver.btn.btn-primary
     => fa 'sync fa-sm'
     | Start Over
-  | {{/end}}
+  | {{/if}}
   
 = javascript_include_tag 'stories'
