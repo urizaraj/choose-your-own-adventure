@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   has_many :stories
   has_many :branches
+  has_many :forks, through: :branches, source: :story
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates_format_of :name, with: /^[a-zA-Z0-9_\.]*$/, multiline: true

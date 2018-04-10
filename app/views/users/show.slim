@@ -1,2 +1,17 @@
 h1 = @user.name
-| Joined #{ date @user }
+p Joined #{ date @user }
+
+.row
+  .col
+    h2 Stories Created
+    ul.list-group
+      - @user.stories.each do |story|
+        li.list-group-item = story.title
+  .col
+    h2 Stories Contributed To
+    ul.list-group
+      - @user.forks.distinct.each do |story|
+        li.list-group-item
+          = story.title
+          br
+          small #{story.branches.where(user_id: @user.id).count} branches
