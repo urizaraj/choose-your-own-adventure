@@ -47,8 +47,8 @@ class Application {
   }
 
   addListeners() {
-    $('#goBack').on('click', () => app.startOver())
-    $('#startOver').on('click', () => app.goBack())
+    $('#goBack').on('click', () => app.goBack())
+    $('#startOver').on('click', () => app.startOver())
     branches = $('#branches')
   }
 }
