@@ -1,9 +1,9 @@
 h1#storyTitle.mb-0 data-id=@story.id data-sbid=@story.start_branch.id data-sbtitle=@story.start_branch.title = @story.title
 .small.mb-2
   | by 
-  / a.badge.badge-secondary =<> @story.user.name
   => link_to @story.user.name, user_path(@story.user), class: 'badge badge-secondary'
-  | created #{@story.created_at.strftime '%B %-d, %Y'}
+  = story_date @story
+
 p = @story.description
 
 #dynamic.none
