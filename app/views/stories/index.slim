@@ -1,18 +1,18 @@
+#none.none
+  .row.justify-content-center.mb-3
+    .col-3: button.btn.btn-primary.btn-block#previous = fa 'angle-left'
+    .col-3: button.btn.btn-primary.btn-block#next = fa 'angle-right'
 
-.row.justify-content-center.mb-3
-  .col-3: button.btn.btn-primary.btn-block#previous = fa 'angle-left'
-  .col-3: button.btn.btn-primary.btn-block#next = fa 'angle-right'
+  .text-center.mb-3
+    .card.d-inline-block
+      .card-body#curStory
 
-.text-center.mb-3
-  .card.d-inline-block
-    .card-body#curStory
-
-= link_to 'New Story', new_story_path, class: 'btn btn-primary'
+  = link_to 'New Story', new_story_path, class: 'btn btn-primary'
 
 ^storyDetail
   h4 {{ title }}
   p {{ description }}
-  h5 {{ endings }} endings
+  h5 {{ endings }}
   a.btn.btn-primary href="{{url}}"
     | Check it Out
     =< fa 'long-arrow-alt-right fa-lg'

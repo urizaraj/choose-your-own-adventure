@@ -8,7 +8,9 @@ class Application {
     const resp = $.get('/stories.json')
     resp.done(stories => {
       this.stories = stories.map(data => new Story(data))
-      this.displayCurStory()
+      // this.displayCurStory()
+      this.stories[0].display()
+      $('#none').fadeIn(200)
     })
   }
 
@@ -35,7 +37,7 @@ class Application {
       this.stories[this.i].display()
       curStory.fadeIn(200)
     })
-    
+
   }
 
 }
@@ -46,12 +48,24 @@ class Story {
     this.title = data.title
     this.description = data.description
     this.url = `/stories/${this.id}`
-    this.endings = data.branches.reduce((a, c) => (a + (c.end ? 1 : 0)), 0)
+    this.endings = this.endingsString(data.branches)
   }
 
   display() {
     const html = storyDetail(this)
     curStory.html(html)
+  }
+
+  endingsString(array) {
+    const n = array.reduce((a, c) => (a + (c.end ? 1 : 0)), 0)
+    switch (n) {
+      case (0):
+        return 'No Endings'
+      case (1):
+        return '1 Ending'
+      default:
+        return `${n} Endings`
+    }
   }
 }
 
