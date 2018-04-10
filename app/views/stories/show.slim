@@ -2,25 +2,32 @@ h1#storyTitle.mb-0 data-id=@story.id = @story.title
 .small.mb-2 by #{@story.user.name}, created #{@story.created_at.strftime '%B %-d, %Y'}
 p = @story.description
 
-#dynamic style="display: none"
+#dynamic.none
   h2#curTitle data-id=@story.start_branch.id = @story.start_branch.title
-  p#curBody = @story.start_branch.body
+  p#curBody
 
-  #branches
+  .mb-1: button#goBack.btn.btn-link.none
+    | Go Back
+    =< fa 'undo fa-sm'
 
-  button#goBack.btn.btn-primary style="display: none" Go Back
-  button#startOver.btn.btn-primary style="display: none" Start Over
+  #branches.mb-3
+
+  button#startOver.btn.btn-primary.none
+    => fa 'sync fa-sm'
+    | Start Over
 
   - if user_signed_in?
-    button.btn.btn-secondary#toggleForm New Branch
-    .row#formRow style="display: none"
+    button.btn.btn-primary.btn-sm#toggleForm
+      => fa 'pencil-alt fa-sm'
+      | New Branch
+
+    .row.none#formRow
       .col-lg-8
-        .card.border-secondary
+        .card.border-primary
           .card-body
             = render partial: 'branches/form', locals: {story: @story, branch: @story.branches.build}
 
 ^branchLink
-  a href="#" data-id="{{ id }}"
-    h3 {{ title }}
+  .mb-1: button.btn.btn-primary id="b-{{ id }}" {{ title }}
 
 = javascript_include_tag 'stories'

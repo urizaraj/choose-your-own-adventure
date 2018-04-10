@@ -33,4 +33,8 @@ $theme-colors: (
 
 .navbar-nav > a {
   @extend .nav-link;
-} 
+}
+
+.none {
+  display: none;
+}

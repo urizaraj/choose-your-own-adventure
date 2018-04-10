@@ -63,7 +63,7 @@ class Branch {
   }
 
   parse(data) {
-    this.body = data.body
+    this.body = data.body.replace(/\n/g,"<br>")
     this.branches = data.branches.map(b => {
       return new Branch(b, this)
     })
@@ -74,7 +74,7 @@ class Branch {
 
   display() {
     curTitle.text(this.title)
-    curBody.text(this.body)
+    curBody.html(this.body)
     if (this.end) {
       startOver.show()
       toggleForm.hide()
@@ -96,7 +96,7 @@ class Branch {
   addLink() {
     const html = branchLink(this)
     branches.append(html)
-    branches.children().last().on('click', event => {
+    $(`#b-${this.id}`).on('click', event => {
       event.preventDefault()
       this.load()
     })

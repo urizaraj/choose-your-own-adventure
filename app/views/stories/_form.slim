@@ -8,12 +8,13 @@
     = f.text_area :description, class: 'form-control'
   
   = f.fields_for :start_branch, start_branch do |b|
+    h4 Start Branch
     .form-group
       = b.label :title
       = b.text_field :title, class: 'form-control'
 
     .form-group
       = b.label :body
-      = b.text_field :body, class: 'form-control'
+      = b.text_area :body, class: 'form-control'
 
   = f.submit class: 'btn btn-primary'
