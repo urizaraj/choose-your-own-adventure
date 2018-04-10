@@ -8,7 +8,7 @@ class Application {
     const resp = $.get('/stories.json')
     resp.done(stories => {
       this.stories = stories.map(data => new Story(data))
-      this.stories[0].display()
+      this.displayCurStory()
     })
   }
 
@@ -18,8 +18,7 @@ class Application {
     } else {
       this.i = 0
     }
-    this.stories[this.i].display()
-    
+    this.displayCurStory()
   }
 
   previous() {
@@ -28,7 +27,15 @@ class Application {
     } else {
       this.i = this.stories.length - 1
     }
-    this.stories[this.i].display()
+    this.displayCurStory()
+  }
+
+  displayCurStory() {
+    curStory.fadeOut(200, () => {
+      this.stories[this.i].display()
+      curStory.fadeIn(200)
+    })
+    
   }
 
 }
@@ -51,6 +58,7 @@ class Story {
 const app = new Application()
 const storyDetail = Handlebars.compile($('#storyDetail').html())
 const curStory = $('#curStory')
+const storyCard = $('#storyCard')
 
 $(() => {
   app.getStories()

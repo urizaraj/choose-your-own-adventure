@@ -1,24 +1,21 @@
-/ - @stories.each do |story|
-/   = link_to story do
-/     h1.display-4 = story.title
 
+.row.justify-content-center.mb-3
+  .col-3: button.btn.btn-primary.btn-block#previous = fa 'angle-left'
+  .col-3: button.btn.btn-primary.btn-block#next = fa 'angle-right'
 
-.card
-  .row.align-items-center.text-center
-    .col-auto#previous 
-      .pl-2 = fa 'angle-left fa-3x'
-    .col
-      .card-body#curStory
-    .col-auto#next 
-      .pr-2 = fa 'angle-right fa-3x'
+.text-center.mb-3
+  .card.d-inline-block
+    .card-body#curStory
 
-= link_to 'New Story', new_story_path
+= link_to 'New Story', new_story_path, class: 'btn btn-primary'
 
 ^storyDetail
-  h4.mb-0 {{ title }}
-  .small.mb-2 {{ description }}
+  h4 {{ title }}
+  p {{ description }}
   h5 {{ endings }} endings
-  a.btn.btn-primary href="{{url}}" Link
+  a.btn.btn-primary href="{{url}}"
+    | Check it Out
+    =< fa 'long-arrow-alt-right fa-lg'
 
 
 = javascript_include_tag 'storyindex'
