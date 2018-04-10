@@ -1,17 +1,22 @@
-#none.none
-  .row.justify-content-center.mb-3
-    .col-3: button.btn.btn-primary.btn-block#previous = fa 'angle-left'
-    .col-3: button.btn.btn-primary.btn-block#next = fa 'angle-right'
+h1 Browse Stories
 
-  .text-center.mb-3
-    .card.d-inline-block
+#none.none
+  .row.mb-3: .col-lg-8
+    .card
       .card-body#curStory
 
-  = link_to 'New Story', new_story_path, class: 'btn btn-primary'
+  .row.mb-3
+    .col-lg-4.col-6: button.btn.btn-secondary.btn-block#previous = fa 'angle-left'
+    .col-lg-4.col-6: button.btn.btn-secondary.btn-block#next = fa 'angle-right'
+
+  - if user_signed_in?
+    = link_to new_story_path, class: 'btn btn-secondary' do
+      => fa 'pencil-alt fa-sm'
+      | New Story
 
 ^storyDetail
   h4 {{ title }}
-  p {{ description }}
+  p style="min-height: 6rem" {{ description }}
   h5 {{ endings }}
   a.btn.btn-primary href="{{url}}"
     | Check it Out

@@ -17,13 +17,13 @@ p = @story.description
     | Start Over
 
   - if user_signed_in?
-    button.btn.btn-primary.btn-sm#toggleForm
+    button.btn.btn-secondary.btn-sm#toggleForm
       => fa 'pencil-alt fa-sm'
       | New Branch
 
     .row.none#formRow
       .col-lg-8
-        .card.border-primary
+        .card.border-0.bg-secondary.text-light
           .card-body
             = render partial: 'branches/form', locals: {story: @story, branch: @story.branches.build}
 
