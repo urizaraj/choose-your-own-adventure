@@ -2,7 +2,7 @@ h1#storyTitle.mb-0 data-id=@story.id data-sbid=@story.start_branch.id data-sbtit
 .small.mb-2
   | by 
   => link_to @story.user.name, user_path(@story.user), class: 'badge badge-secondary'
-  = story_date @story
+  | created #{ date @story }
 
 p = @story.description
 
@@ -10,9 +10,7 @@ p = @story.description
   #head
 
   - if user_signed_in?
-    button.btn.btn-secondary.btn-sm#toggleForm
-      => fa 'pencil-alt fa-sm'
-      | New Branch
+    button.btn.btn-secondary.btn-sm#toggleForm #{ fa 'pencil-alt fa-sm' } New Branch 
 
     .row.none#formRow
       .col-lg-8
