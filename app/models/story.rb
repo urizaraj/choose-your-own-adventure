@@ -4,4 +4,7 @@ class Story < ApplicationRecord
   has_many :branches
 
   accepts_nested_attributes_for :start_branch
+
+  validates :title, presence: true
+  validates :description, presence: true
 end
