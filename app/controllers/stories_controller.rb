@@ -53,4 +53,8 @@ class StoriesController < ApplicationController
               :description,
               start_branch_attributes: %i[id title body]
   end
+
+  def require_right_user
+    return head(:forbidden) unless @story.user == current_user || admin?
+  end
 end
