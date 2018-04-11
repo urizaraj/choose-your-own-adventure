@@ -105,6 +105,9 @@ class Branch {
 
 const app = new Application()
 
+const branch_returnable = $('#branch_returnable')[0]
+const branch_end = $('#branch_end')[0]
+
 $(() => {
   toggleForm.on('click', () => formRow.slideToggle(100))
   form.submit(event => app.submitForm(event))
@@ -118,4 +121,16 @@ $(() => {
       $('#editModal').modal()
     })
   })
+
+  $(branch_returnable).on('change', () => {
+    if (branch_returnable.checked) {
+      branch_end.checked = false
+    }
+  })
+  $(branch_end).on('change', () => {
+    if (branch_end.checked) {
+      branch_returnable.checked = false
+    }
+  })
+
 })
