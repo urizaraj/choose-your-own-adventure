@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'stories#index'
+  root to: 'static#home'
 
   get '/admin', to: 'static#admin'
   

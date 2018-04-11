@@ -1,4 +1,6 @@
-p 
-  = link_to 'All Stories', stories_path
-  br
-  = link_to 'Admin', admin_path
+h1.display-4 Choose Your Own Adventure
+
+- unless user_signed_in?
+  h2 #{ link_to 'Sign Up', new_user_registration_path } or #{ link_to 'Sign In', new_user_session_path} to get started!
+
+h2 = link_to 'Browse Stories', stories_path
