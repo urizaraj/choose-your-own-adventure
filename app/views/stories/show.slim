@@ -35,12 +35,14 @@ p = @story.description
     | submited by
     a.badge.badge-secondary< href="/users/{{user.id}}" {{ user.name }}
 
-  p {{{ body }}}
+  p
+    | {{#each body}}
+    | {{this}}
+    br
+    | {{/each}}
 
   | {{#if returnable}}
-  .mb-1: button#goBack.btn.btn-link
-    | Go Back
-    =< fa 'undo fa-sm'
+  .mb-1: button#goBack.btn.btn-link Go Back #{ fa 'undo fa-sm' }
   | {{/if}}
 
   #branches.mb-3

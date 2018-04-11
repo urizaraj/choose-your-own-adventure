@@ -69,7 +69,7 @@ class Branch {
   }
 
   parse(data) {
-    this.body = data.body.replace(/\n/g, "<br>")
+    this.body = data.body.split('\n')
     this.branches = data.branches.map(b => {
       return new Branch(b, this)
     })
