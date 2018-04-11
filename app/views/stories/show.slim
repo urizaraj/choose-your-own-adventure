@@ -6,6 +6,9 @@
 
 p = @story.description
 
+/ button.btn.btn-secondary.mb-3#editStory Edit Story
+.mb-3 = link_to 'Edit Story', edit_story_path(@story), class: 'btn btn-secondary', id: 'editStory'
+
 #dynamic.none
   #head
 
@@ -17,6 +20,11 @@ p = @story.description
         .card.border-0.bg-secondary.text-light
           .card-body
             = render partial: 'branches/form', locals: {story: @story, branch: @story.branches.build}
+
+#editModal.modal tabindex="-1" role="dialog"
+  .modal-dialog role="document"
+    .modal-content
+      .modal-body#modalBody
 
 ^branchLink
   .mb-1: button.btn.btn-primary id="b-{{ id }}" {{ title }}
@@ -38,6 +46,7 @@ p = @story.description
   #branches.mb-3
 
   | {{#if end}}
+  h2 The End
   button#startOver.btn.btn-primary
     => fa 'sync fa-sm'
     | Start Over

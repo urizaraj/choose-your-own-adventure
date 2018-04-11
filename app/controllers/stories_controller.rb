@@ -1,9 +1,10 @@
 class StoriesController < ApplicationController
+  before_action :set_story, only: %i[show edit update]
   before_action :require_user, only: %i[new create]
+  before_action :require_right_user, only: %i[edit update]
 
   def index
     @stories = Story.all
-    # render json: @stories
     respond_to do |format|
       format.html { render :index }
       format.json { render json: @stories }
@@ -11,7 +12,6 @@ class StoriesController < ApplicationController
   end
 
   def show
-    @story = Story.find(params[:id])
   end
 
   def new
@@ -29,9 +29,28 @@ class StoriesController < ApplicationController
     redirect_to stories_path
   end
 
+  def edit
+    start_branch = @story.start_branch
+    render partial: 'form', locals: { story: @story, start_branch: start_branch }
+  end
+
+  def update
+    @story.update(strong_params)
+    redirect_to story
+  end
+
+  private
+
+  def set_story
+    @story = Story.find(params[:id])
+  end
+
   def strong_params
     params
       .require(:story)
-      .permit(:title, :description, start_branch_attributes: %i[title body])
+      .permit :id,
+              :title,
+              :description,
+              start_branch_attributes: %i[id title body]
   end
 end

@@ -55,11 +55,10 @@ class Application {
 
 class Branch {
   constructor(data, parent) {
-    this.id = data.id
-    this.title = data.title
-    this.returnable = data.returnable
-    this.end = data.end
-    this.user = data.user
+    const attributes = ['id', 'title', 'returnable', 'end', 'user']
+    attributes.forEach(attribute => {
+      this[attribute] = data[attribute]
+    })
     this.parent = parent
     this.url = `/stories/${sid}/branches/${this.id}`
   }
@@ -81,18 +80,6 @@ class Branch {
   }
 
   display() {
-    // curTitle.text(this.title)
-    // curBody.html(this.body)
-    // author.text(this.user.name)
-    // if (this.end) {
-    //   startOver.show()
-    //   toggleForm.hide()
-    // } else {
-    //   startOver.hide()
-    //   toggleForm.show()
-    // }
-
-    // this.returnable ? goBack.show() : goBack.hide()
     this.end ? toggleForm.hide() : toggleForm.show()
     const html = branchHead(this)
     head.html(html)
@@ -121,4 +108,14 @@ const app = new Application()
 $(() => {
   toggleForm.on('click', () => formRow.slideToggle(100))
   form.submit(event => app.submitForm(event))
+
+  $('#editStory').on('click', event => {
+    event.preventDefault()
+    const url = event.currentTarget.href
+    const resp = $.get(url)
+    resp.done(html => {
+      $('#modalBody').html(html)
+      $('#editModal').modal()
+    })
+  })
 })
