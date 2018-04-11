@@ -7,7 +7,8 @@
 p = @story.description
 
 / button.btn.btn-secondary.mb-3#editStory Edit Story
-.mb-3 = link_to 'Edit Story', edit_story_path(@story), class: 'btn btn-secondary', id: 'editStory'
+- if same_user
+  .mb-3 = link_to 'Edit Story', edit_story_path(@story), class: 'btn btn-secondary', id: 'editStory'
 
 #dynamic.none
   #head

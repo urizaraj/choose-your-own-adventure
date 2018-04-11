@@ -3,6 +3,8 @@ class StoriesController < ApplicationController
   before_action :require_user, only: %i[new create]
   before_action :require_right_user, only: %i[edit update]
 
+  helper_method :same_user
+
   def index
     @stories = Story.all
     respond_to do |format|
@@ -55,6 +57,10 @@ class StoriesController < ApplicationController
   end
 
   def require_right_user
-    return head(:forbidden) unless @story.user == current_user || admin?
+    return head(:forbidden) unless same_user
+  end
+
+  def same_user
+    @story.user == current_user || admin?
   end
 end
