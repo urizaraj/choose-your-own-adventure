@@ -8,12 +8,12 @@ table.table.mb-5
       td = story.description
 
 strong branches
-table.table.mb-5 style="font-size: 1rem"
+table.table.mb-5#branchTable style="font-size: 1rem"
   - Branch.all.each do |branch|
-    tr
+    tr id=branch.id data-body=branch.body
       td = link_to fa('cog'), edit_story_branch_path(branch.story, branch), class: 'edit'
       td = branch.id
-      td id=branch.id data-body=branch.body = branch.title
+      td = branch.title
       td = branch.story.id if branch.story
       td = 'R' if branch.returnable
       td = 'E' if branch.end
@@ -23,12 +23,11 @@ table.table.mb-5 style="font-size: 1rem"
       / td: a.tool href="#" data-placement="bottom" data-toggle="tooltip" title=branch.body = truncate branch.body, length: 50
 
 #m.modal tabindex="-1" role="dialog"
-  .modal-dialog role="document"
+  .modal-dialog.modal-lg role="document"
     .modal-content
       .modal-body#mbody
 
-.fixed-bottom
-  .card
-    .card-body#body
+.card style="width: 20rem; position: fixed; top: 0; right: 0;"
+  .card-body#body
 
 = javascript_include_tag 'static'
