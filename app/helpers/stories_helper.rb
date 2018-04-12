@@ -9,4 +9,10 @@ module StoriesHelper
              sbtitle: story.start_branch.title
            }
   end
+
+  def user_badge(user)
+    tag.strong do
+      link_to user.name, user, class: 'user-link'
+    end
+  end
 end

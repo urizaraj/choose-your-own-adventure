@@ -38,3 +38,11 @@ $theme-colors: (
 .none {
   display: none;
 }
+
+.user-link {
+  color: theme-color(secondary);
+  transition: all .1s;
+  &:hover {
+    color: theme-color(dark);
+  }
+}

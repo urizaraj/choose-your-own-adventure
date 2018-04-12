@@ -1,14 +1,17 @@
-= story_head @story
-.small.mb-2
-  | by 
-  => link_to @story.user.name, @story.user, class: 'badge badge-secondary'
-  | created #{ date @story }
+.row.justify-content-between
+  .col-md-auto
+    .mb-2
+      = story_head @story
+      small by #{ user_badge @story.user } created #{ date @story }
 
-p = @story.description
+    p = @story.description
 
-/ button.btn.btn-secondary.mb-3#editStory Edit Story
-- if same_user
-  .mb-3 = link_to 'Edit Story', edit_story_path(@story), class: 'btn btn-secondary', id: 'editStory'
+  - if same_user
+    .col-md-auto.mb-3
+      = link_to edit_story_path(@story), class: 'btn btn-secondary btn-block', id: 'editStory'
+        | #{ fa 'edit' } Edit
+      = link_to @story, method: 'delete', data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary btn-block'
+        | #{ fa 'trash' } Delete
 
 #dynamic.none
   #head
@@ -33,8 +36,8 @@ p = @story.description
 ^branchHead
   h2.mb-0 {{ title }}
   .small.mb-2
-    | submited by
-    a.badge.badge-secondary< href="/users/{{user.id}}" {{ user.name }}
+    | submitted by
+    strong: a.user-link< href="/users/{{user.id}}" {{ user.name }}
 
   p
     | {{#each body}}
