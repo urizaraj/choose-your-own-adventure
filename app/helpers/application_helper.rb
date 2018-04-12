@@ -30,10 +30,11 @@ module ApplicationHelper
   end
 
   def logo
-    tag.i class: 'fas fa-share-alt', 
-    data: {
-      'fa-transform': 'rotate-270 shrink-5 down-.5',
-      'fa-mask': 'fas fa-circle'
-    }
+    tag.i class: 'fas fa-share-alt fa-sm',
+          data: {
+            # 'fa-transform' => 'rotate-270 shrink-5 down-.5',
+            'fa-transform' => 'rotate-270',
+            # 'fa-mask' => 'fas fa-circle'
+          }
   end
 end
