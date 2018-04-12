@@ -1,17 +1,27 @@
 nav.navbar.navbar-expand.navbar-dark.mb-3.bg-secondary
   .navbar-nav.align-items-center
-    = link_to 'Home', root_path
+    = link_to root_path, class: 'navbar-brand'
+      | #{ logo } CYOA
+
     = link_to 'Stories', stories_path
+
     - if user_signed_in?
+      = link_to current_user, class: 'nav-link'
+        | #{ current_user.name }
+
       .nav-item.dropdown
-        = link_to current_user.name, '#', class: 'nav-link', data: {toggle: 'dropdown'}
+        = link_to fa('chevron-down fa-sm'), '#', class: 'nav-link', data: {toggle: 'dropdown'}
         .dropdown-menu
-          = link_to 'View Account', current_user, class: 'dropdown-item'
-          = link_to 'Edit Account', edit_user_registration_path, class: 'dropdown-item'
-          = link_to 'Sign Out', destroy_user_session_path, method: 'delete', class: 'dropdown-item'
+          = link_to edit_user_registration_path, class: 'dropdown-item'
+            | #{ far 'edit fa-fw' } Edit Account
+            
+          = link_to destroy_user_session_path, method: 'delete', class: 'dropdown-item'
+            | #{ far 'share-square fa-fw'} Sign Out
+          
           - if current_user.admin
             .dropdown-divider
-            = link_to 'Admin View', admin_path, class: 'dropdown-item' 
+            = link_to admin_path, class: 'dropdown-item'
+              | #{ far 'clipboard fa-fw' } Admin
 
     - else
       = link_to 'Sign Up', new_user_registration_path

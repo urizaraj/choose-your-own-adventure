@@ -28,4 +28,12 @@ module ApplicationHelper
   def date(resource)
     resource.created_at.strftime '%B %-d, %Y'
   end
+
+  def logo
+    tag.i class: 'fas fa-share-alt', 
+    data: {
+      'fa-transform': 'rotate-270 shrink-5 down-.5',
+      'fa-mask': 'fas fa-circle'
+    }
+  end
 end
