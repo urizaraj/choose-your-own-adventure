@@ -39,23 +39,19 @@
     | submitted by
     strong: a.user-link< href="/users/{{user.id}}" {{ user.name }}
 
-  p
-    | {{#each body}}
-    | {{this}}
-    br
-    | {{/each}}
+  .row
+    .col-lg-8
+      p == hb 'each', 'body'
+        | {{this}}
+        br
 
-  | {{#if returnable}}
-  .mb-1: button#goBack.btn.btn-link Go Back #{ fa 'undo fa-sm' }
-  | {{/if}}
+  == hb 'if', 'returnable'
+    .mb-1: button#goBack.btn.btn-link Go Back #{ fa 'undo fa-sm' }
 
   #branches.mb-3
 
-  | {{#if end}}
-  h2 The End
-  button#startOver.btn.btn-primary
-    => fa 'sync fa-sm'
-    | Start Over
-  | {{/if}}
+  == hb 'if', 'end'
+    h2.text-primary The End
+    button#startOver.btn.btn-primary #{ fa 'sync fa-sm' } Start Over
   
-= javascript_include_tag 'stories'
+= javascript_include_tag 'storyShow'

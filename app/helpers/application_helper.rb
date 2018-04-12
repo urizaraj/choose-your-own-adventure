@@ -37,4 +37,10 @@ module ApplicationHelper
             # 'fa-mask' => 'fas fa-circle'
           }
   end
+
+  def hb(type, key, &block)
+    "{{##{type} #{key}}}
+    #{capture(&block)}
+    {{/#{type}}}"
+  end
 end
