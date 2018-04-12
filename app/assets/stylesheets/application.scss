@@ -46,3 +46,10 @@ $theme-colors: (
     color: theme-color(dark);
   }
 }
+
+.blue-heading {
+  @extend .bg-secondary;
+  @extend .text-light;
+  @extend .d-inline-block;
+  @extend .p-3;
+}
