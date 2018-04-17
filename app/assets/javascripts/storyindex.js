@@ -6,13 +6,13 @@ function initializeStoryIndex() {
     }
   
     getStories() {
-      const resp = $.get('/stories.json')
-      resp.done(stories => {
-        this.stories = stories.map(data => new Story(data))
-        // this.displayCurStory()
-        this.stories[0].display()
-        $('#none').fadeIn(200)
-      })
+      fetch('/stories.json')
+        .then(resp => resp.json())
+        .then(resp => {
+          this.stories = resp.map(story => new Story(story))
+          this.stories[0].display()
+          $('#none').fadeIn(200)
+        })
     }
   
     next() {
