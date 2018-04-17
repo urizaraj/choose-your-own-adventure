@@ -43,6 +43,7 @@ function initializeStoryShow() {
       toggleForm.on('click', () => formRow.slideToggle(100))
       head.on('click', '#goBack', () => this.goBack())
       head.on('click', '#startOver', () => this.startOver())
+      head.on('click', '#editBranch', () => this.curBranch.edit())
       form.submit(event => this.submitForm(event))
     
       $('#editStory').on('click', event => {
@@ -72,7 +73,7 @@ function initializeStoryShow() {
   
   class Branch {
     constructor(data, parent) {
-      const attributes = ['id', 'title', 'returnable', 'end', 'user']
+      const attributes = ['id', 'title', 'returnable', 'end', 'user', 'same_user']
       attributes.forEach(attribute => {
         this[attribute] = data[attribute]
       })
@@ -81,9 +82,18 @@ function initializeStoryShow() {
     }
   
     load() {
-      fetch(this.url)
+      fetch(this.url, {credentials: 'same-origin'})
         .then(resp => resp.json())
         .then(data => this.parse(data))
+    }
+
+    edit() {
+      fetch(`${this.url}/edit`, {credentials: 'same-origin'})
+        .then(resp => resp.text())
+        .then(html => {
+          $('#modalBody').html(html)
+          $('#editModal').modal()
+        })
     }
   
     parse(data) {

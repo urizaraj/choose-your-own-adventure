@@ -53,5 +53,9 @@
   == hb 'if', 'end'
     h2.text-primary The End
     button#startOver.btn.btn-primary #{ fa 'sync fa-sm' } Start Over
+
+  == hb 'if', 'same_user'
+    .mb-3
+      button#editBranch.btn.btn-secondary.btn-sm #{ fa 'edit' } Edit
   
 = javascript_include_tag 'storyShow'
