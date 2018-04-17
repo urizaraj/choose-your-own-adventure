@@ -14,14 +14,21 @@ function initializeStoryShow() {
   
     submitForm(event) {
       event.preventDefault()
-      const values = form.serialize()
-      const resp = $.post(`/stories/${sid}/branches`, values)
-      resp.done(data => {
-        const branch = new Branch(data, this.curBranch)
-        branch.addLink()
-        form[0].reset()
-        formRow.slideToggle(100)
-      })
+
+      const options = {
+        method: 'POST',
+        credentials: 'same-origin',
+        body: new FormData(form[0])
+      }
+
+      fetch(`/stories/${sid}/branches`, options)
+        .then(resp => resp.json())
+        .then(data => {
+          const branch = new Branch(data, this.curBranch)
+          branch.addLink()
+          form[0].reset()
+          formRow.slideToggle(100)
+        })
     }
   
     startOver() {
@@ -34,26 +41,27 @@ function initializeStoryShow() {
   
     addInitialListeners() {
       toggleForm.on('click', () => formRow.slideToggle(100))
+      head.on('click', '#goBack', () => this.goBack())
+      head.on('click', '#startOver', () => this.startOver())
       form.submit(event => this.submitForm(event))
     
       $('#editStory').on('click', event => {
         event.preventDefault()
         const url = event.currentTarget.href
-        const resp = $.get(url)
-        resp.done(html => {
-          $('#modalBody').html(html)
-          $('#editModal').modal()
-        })
+        fetch(url, {credentials: 'same-origin'})
+          .then(resp => resp.text())
+          .then(html => {
+            $('#modalBody').html(html)
+            $('#editModal').modal()
+          })
       })
-
-      head.on('click', '#goBack', () => this.goBack())
-      head.on('click', '#startOver', () => this.startOver())
     
       $(branch_returnable).on('change', () => {
         if (branch_returnable.checked) {
           branch_end.checked = false
         }
       })
+
       $(branch_end).on('change', () => {
         if (branch_end.checked) {
           branch_returnable.checked = false
@@ -73,8 +81,9 @@ function initializeStoryShow() {
     }
   
     load() {
-      let resp = $.get(this.url)
-      resp.done(data => this.parse(data))
+      fetch(this.url)
+        .then(resp => resp.json())
+        .then(data => this.parse(data))
     }
   
     parse(data) {
