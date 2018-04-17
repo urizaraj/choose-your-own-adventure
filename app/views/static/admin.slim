@@ -12,6 +12,7 @@ table.table.mb-5#branchTable style="font-size: 1rem"
   - Branch.all.each do |branch|
     tr id=branch.id data-body=branch.body
       td = link_to fa('cog'), edit_story_branch_path(branch.story, branch), class: 'edit'
+      td = link_to fa('trash'), story_branch_path(branch.story, branch), method: 'delete', data: { confirm: 'Are you sure?' }
       td = branch.id
       td = branch.title
       td = branch.story.id if branch.story
