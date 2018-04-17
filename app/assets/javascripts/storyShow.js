@@ -73,10 +73,8 @@ function initializeStoryShow() {
   
   class Branch {
     constructor(data, parent) {
-      const attributes = ['id', 'title', 'returnable', 'end', 'user', 'same_user']
-      attributes.forEach(attribute => {
-        this[attribute] = data[attribute]
-      })
+      this.id = data.id
+      this.title = data.title
       this.parent = parent
       this.url = `/stories/${sid}/branches/${this.id}`
     }
@@ -97,11 +95,17 @@ function initializeStoryShow() {
     }
   
     parse(data) {
+      const attributes = ['returnable', 'end', 'user', 'same_user']
+      attributes.forEach(attribute => {
+        this[attribute] = data[attribute]
+      })
+
       this.body = data.body.split('\n')
+
       this.branches = data.branches.map(b => {
         return new Branch(b, this)
       })
-      this.user = data.user
+
       app.curBranch = this
       bpid.val(this.id)
       dynamic.fadeOut(200, () => this.display())

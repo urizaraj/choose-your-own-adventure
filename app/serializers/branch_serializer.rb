@@ -8,4 +8,8 @@ class BranchSerializer < ActiveModel::Serializer
   def same_user
     (current_user == object.user) || current_user.admin
   end
+
+  class BranchSerializer < ActiveModel::Serializer
+    attributes :id, :title
+  end
 end
