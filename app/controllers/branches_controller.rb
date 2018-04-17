@@ -26,7 +26,7 @@ class BranchesController < ApplicationController
 
   def destroy
     @branch.destroy
-    render json: {success: true}.to_json
+    redirect_to admin_path
   end
 
   private
