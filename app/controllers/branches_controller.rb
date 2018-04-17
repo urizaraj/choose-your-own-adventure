@@ -1,6 +1,6 @@
 class BranchesController < ApplicationController
-  before_action :set_branch, only: %i[show edit update]
-  before_action :require_user, only: %i[create edit update]
+  before_action :set_branch, only: %i[show edit update destroy]
+  before_action :require_user, only: %i[create edit update destroy]
   
   def show
     render json: @branch
@@ -21,7 +21,12 @@ class BranchesController < ApplicationController
 
   def update
     @branch.update(strong_params)
-    redirect_to admin_path
+    redirect_to @branch.story
+  end
+
+  def destroy
+    @branch.destroy
+    render json: {success: true}.to_json
   end
 
   private
