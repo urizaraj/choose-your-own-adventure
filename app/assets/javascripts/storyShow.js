@@ -5,8 +5,6 @@ function initializeStoryShow() {
       const data = {
         title: storyTitle.data('sbtitle'),
         id: storyTitle.data('sbid'),
-        end: false,
-        returnable: false
       }
   
       this.startBranch = this.curBranch = new Branch(data)
@@ -116,13 +114,8 @@ function initializeStoryShow() {
       const html = branchHead(this)
       head.html(html)
       branches = $('#branches')
-      this.addLinks()
+      this.branches.forEach(branch => branch.addLink())
       dynamic.fadeIn(200)
-    }
-  
-    addLinks() {
-      branches.empty()
-      this.branches.forEach(b => b.addLink())
     }
   
     addLink() {
