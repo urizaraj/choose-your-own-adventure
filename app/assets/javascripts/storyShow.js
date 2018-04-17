@@ -1,5 +1,5 @@
 
-function initializeApplication() {
+function initializeStoryShow() {
   class Application {
     constructor() {
       const data = {
@@ -32,12 +32,6 @@ function initializeApplication() {
       this.curBranch.parent.load()
     }
   
-    addNavListeners() {
-      $('#goBack').on('click', () => this.goBack())
-      $('#startOver').on('click', () => this.startOver())
-      branches = $('#branches')
-    }
-
     addInitialListeners() {
       toggleForm.on('click', () => formRow.slideToggle(100))
       form.submit(event => this.submitForm(event))
@@ -51,6 +45,9 @@ function initializeApplication() {
           $('#editModal').modal()
         })
       })
+
+      head.on('click', '#goBack', () => this.goBack())
+      head.on('click', '#startOver', () => this.startOver())
     
       $(branch_returnable).on('change', () => {
         if (branch_returnable.checked) {
@@ -95,7 +92,7 @@ function initializeApplication() {
       this.end ? toggleForm.hide() : toggleForm.show()
       const html = branchHead(this)
       head.html(html)
-      app.addNavListeners()
+      branches = $('#branches')
       this.addLinks()
       dynamic.fadeIn(200)
     }
@@ -137,4 +134,4 @@ function initializeApplication() {
   app.addInitialListeners()
 }
 
-$(() => initializeApplication())
+$(() => initializeStoryShow())
