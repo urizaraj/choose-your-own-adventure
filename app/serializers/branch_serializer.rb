@@ -6,7 +6,7 @@ class BranchSerializer < ActiveModel::Serializer
   attribute :same_user
 
   def same_user
-    (current_user == object.user) || current_user.admin
+    (current_user == object.user) || current_user.admin if current_user
   end
 
   class BranchSerializer < ActiveModel::Serializer
